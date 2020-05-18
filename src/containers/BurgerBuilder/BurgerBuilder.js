@@ -3,6 +3,7 @@ import Aux from '../../hoc/Auxilary'
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal';
+import OrderSum from '../../components/Burger/OrderSummery/OrderSummery';
 
 const INGRIDIENT_PRICES = {
     salad: 0.5,
@@ -48,6 +49,9 @@ export class BurgerBuilder extends Component {
         this.updatePurcheseState(updatedIngredient)
     }
 
+    ModalViewHandler = () => {
+        this.setState({ visable: true })
+    }
     updatePurcheseState(updated) {
         const ingredients = { ...updated }
         const sum = Object.keys(ingredients).map(ingrediant => {
@@ -57,6 +61,11 @@ export class BurgerBuilder extends Component {
         }, 0);
         this.setState({ isPurches: sum !== 0 })
     }
+
+    purchesCancelHandler = () => {
+        this.setState({ visable: !true })
+    }
+
     render() {
         const disableList = {
             ...this.state.ingredients
@@ -66,7 +75,9 @@ export class BurgerBuilder extends Component {
         }
         return (
             <Aux>
-                <Modal visable={this.state.visable} />
+                <Modal visable={this.state.visable} modalClosed={this.purchesCancelHandler}>
+                    <OrderSum price={this.state.totalPrice}
+                        ingredient={this.state.ingredients} /></Modal>
                 <Burger ingredient={this.state.ingredients} />
                 <BuildControls
                     add={this.addIngredientHandler}
@@ -74,6 +85,7 @@ export class BurgerBuilder extends Component {
                     disable={disableList}
                     isPurches={this.state.isPurches}
                     price={this.state.totalPrice}
+                    ModalViewHandler={this.ModalViewHandler}
                 />
             </Aux>
         )

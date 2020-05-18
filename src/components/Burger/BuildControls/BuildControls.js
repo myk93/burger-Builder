@@ -23,7 +23,7 @@ const BuildControls = (props) => {
                     disable={props.disable[item.type]}
                 />
             ))}
-            <button className={classes.OrderButton} disabled={!props.isPurches}>ORDER NOW</button>
+            <button className={classes.OrderButton} disabled={!props.isPurches} onClick={props.ModalViewHandler}>ORDER NOW</button>
         </div>
     )
 }
