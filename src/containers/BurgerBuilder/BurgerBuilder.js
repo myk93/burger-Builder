@@ -52,6 +52,11 @@ export class BurgerBuilder extends Component {
     ModalViewHandler = () => {
         this.setState({ visable: true })
     }
+
+    purchaseContinueHandler = () => {
+        alert('you fineshed your order')
+    }
+
     updatePurcheseState(updated) {
         const ingredients = { ...updated }
         const sum = Object.keys(ingredients).map(ingrediant => {
@@ -77,7 +82,9 @@ export class BurgerBuilder extends Component {
             <Aux>
                 <Modal visable={this.state.visable} modalClosed={this.purchesCancelHandler}>
                     <OrderSum price={this.state.totalPrice}
-                        ingredient={this.state.ingredients} /></Modal>
+                        ingredient={this.state.ingredients}
+                        countinue={this.purchaseContinueHandler}
+                        pause={this.purchesCancelHandler} /></Modal>
                 <Burger ingredient={this.state.ingredients} />
                 <BuildControls
                     add={this.addIngredientHandler}
